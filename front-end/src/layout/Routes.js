@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Dashboard from "../components/dashboard/dashboard";
+import Dashboard from "../components/dashboard/Dashboard";
 import NotFound from "../utils/Errors/NotFound";
 import { today } from "../utils/date-time";
 import { listReservations, listTables } from "../utils/api";
