@@ -6,7 +6,7 @@ import formatReservationDate from "./format-reservation-date";
 import formatReservationTime from "./format-reservation-date";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
+  process.env.REACT_APP_API_BASE_URL || "postgres://bssrhkpb:iUbXe6TBOn0MvuhrN4Wv24nLOUsLEogq@babar.db.elephantsql.com/bssrhkpb";
 
 /**
  * Defines the default headers for these functions to work with `json-server`
