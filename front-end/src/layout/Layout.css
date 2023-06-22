@@ -14,7 +14,7 @@ h5 {
 
 .menu {
   background-color: #393a44;
-  color: #a369c9;
+  color: #a697b1;
 }
 
 .menu-align {
@@ -23,11 +23,11 @@ h5 {
 
 .btn-a {
   color: #393a44;
-  background-color: #6D67E4;
+  background-color: #d7d3da;
 }
 
 .border-a {
-  border: 1px solid #9F73AB;
+  border: 1px solid #131313;
 }
 
 .border-a:hover {
@@ -35,7 +35,7 @@ h5 {
 }
 
 .btn-a:hover {
-  background-color: #9F73AB;
+  background-color: #848385;
 }
 
 .btn-warn {
@@ -45,9 +45,9 @@ h5 {
 }
 
 .btn-warn:hover {
-  background-color: #C84B31;
-  color: #d9bfd3;
-  border: 1px solid #EB6440;
+  background-color: #c2a6a0;
+  color: #dac8ae;
+  border: 1px solid #c47f6e;
 }
 
 .form-control {
@@ -60,7 +60,7 @@ h5 {
 }
 
 .lgi-table {
-  background-color: #ded2e6;
+  background-color: #6a686b;
 }
 
 .lgi-interior {
@@ -69,8 +69,8 @@ h5 {
 }
 
 .lgi-table-interior {
-  background-color: #746275;
-  color: #3a445d;
+  background-color: #74627500;
+  color: #ffffff;
 }
 
 .minw100 {
