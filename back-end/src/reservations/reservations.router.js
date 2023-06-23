@@ -12,9 +12,6 @@ const cors = require("cors");
 router.use(cors());
 
 
-router.route("/new")
-    .post(controller.create)
-    .all(methodNotAllowed);
 
 router.route("/")
     .get(controller.list)
