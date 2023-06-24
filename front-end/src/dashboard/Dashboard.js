@@ -5,7 +5,7 @@ import ErrorAlert from "../layout/ErrorAlert";
 import useQuery from '../utils/useQuery';
 import Reservation from './Reservation';
 import Table from './Table';
-import Clock from '../utils/Clock';
+
 
 /**
  * Defines the dashboard page.
@@ -83,7 +83,6 @@ function Dashboard({ currentDate }) {
     <main>
       <header className='d-flex justify-content-end'>
         <h5 className='text-center mb-0 mr-2'>{formatDate(currentDate)}</h5>
-        <Clock />
       </header >
       <ErrorAlert error={reservationsError} />
       <h4 className='text-center rtHead'>Reservations</h4>
