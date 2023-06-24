@@ -208,7 +208,7 @@ async function read(req, res) {
  * Create handler for creating new reservations
  */
 async function create(req, res) {
-  const data = await service.create(res.locals.reservation);
+  const data = await service.create(res.locals.newReservation);
 
   res.status(201).json({
     data: data[0],
