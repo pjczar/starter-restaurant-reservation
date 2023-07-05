@@ -64,14 +64,17 @@ async function validateNewReservation(req, res, next) {
 /**
  * Date validation middleware
  */
-async function dateValidator(req, res, next) {
+function dateValidator(req, res, next) {
   const date = new Date(res.locals.reservation.reservation_date);
   const currentDate = new Date();
 
   if (date.getUTCDay() === 2)
     return next({ status: 400, message: "We're closed on Tuesdays!" });
 
-  if (date.valueOf() < currentDate.setHours(0, 0, 0, 0))
+  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes();
+  const reservationTime = date.getHours() * 60 + date.getMinutes();
+
+  if (date.toDateString() === currentDate.toDateString() && reservationTime <= currentTime)
     return next({ status: 400, message: "Reservations must be made in the future!" });
 
   next();
