@@ -60,18 +60,18 @@ async function validateNewReservation(req, res, next) {
   res.locals.reservation = { first_name, last_name, mobile_number, people, reservation_date, reservation_time };
   next();
 }
-
+/**write a funtion that gets the timezone  */
 /**
  * Date validation middleware
  */
 function dateValidator(req, res, next) {
   const date = new Date(res.locals.reservation.reservation_date);
   const currentDate = new Date();
-
+ console.log(date)
   if (date.getUTCDay() === 2)
     return next({ status: 400, message: "We're closed on Tuesdays!" });
 
-  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes();
+  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes() - 240;
   const reservationTime = date.getHours() * 60 + date.getMinutes();
 
   if (date.toDateString() === currentDate.toDateString() && reservationTime <= currentTime)
