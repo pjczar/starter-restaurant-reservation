@@ -71,11 +71,30 @@ async function dateValidator(req, res, next) {
   if (date.getUTCDay() === 2)
     return next({ status: 400, message: "We're closed on Tuesdays!" });
 
-  if (date.valueOf() < currentDate.valueOf() && date.toUTCString().slice(0, 16) !== currentDate.toUTCString().slice(0, 16))
+  if (date.valueOf() < currentDate.setHours(0, 0, 0, 0))
     return next({ status: 400, message: "Reservations must be made in the future!" });
 
   next();
 }
+
+
+// validation middleware: checks that the reservation_date is not a Tuesday
+function notTuesday(req, res, next) {
+  const { reservation_date } = req.body.data;
+  const date = new Date(reservation_date);
+  const day = date.getUTCDay();
+  if (day === 2) {
+    return next({
+      status: 400,
+      message: "The restaurant is closed on Tuesday.",
+    });
+  } else {
+    return next();
+  }
+}
+
+
+
 
 /**
  * Timeline validation middleware

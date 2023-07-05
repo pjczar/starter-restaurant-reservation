@@ -23,7 +23,7 @@ export default function ReservationSeat() {
         listTables(abortController.signal)
             .then(response => {
                 setTables(response);
-                setTableId(response[0].table_id); // Sets our default value
+                setTableId(response[0].table_id);
             })
             .catch(error => console.error(error));
 

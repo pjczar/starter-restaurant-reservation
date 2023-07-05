@@ -56,7 +56,7 @@ export default function ReservationForm({ handleSubmit, reservation = {
                 <div className='form-group'>
                     <label htmlFor="mobile_number">
                         Mobile Number
-                    <input name='mobile_number' type='tel' placeholder='###-###-####' className='form-control' defaultValue={reservation.mobile_number} required />
+                    <input name='mobile_number' type='tel' placeholder='###-###-####' pattern="[1-9]{1}[0-9]{9}" className='form-control' defaultValue={reservation.mobile_number} required />
                     </label>
                 </div>
                 <div className='form-group'>
