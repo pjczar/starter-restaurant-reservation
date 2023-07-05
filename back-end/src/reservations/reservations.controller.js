@@ -256,6 +256,7 @@ async function update(req, res) {
   });
 }
 
+/**reordered dateValidator and timelineValidator */
 
 module.exports = {
   list: [asyncErrorBoundary(list)],
