@@ -87,6 +87,8 @@ function dateValidator(req, res, next) {
   const [year, month, day] = reservation_date.split("-");
   const date = new Date(`${month} ${day}, ${year}`);
   const [hour, minute] = reservation_time.split(":");
+  const userTimezone = getUserTimezone();
+  console.log(userTimezone)
 
   if (date.getDay() === 2) {
     return next({ status: 400, message: "Location is closed on Tuesdays" });
