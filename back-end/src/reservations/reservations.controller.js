@@ -153,7 +153,7 @@ function notTuesday(req, res, next) {
 
 /**
  * Timeline validation middleware
- */
+
 function timelineValidator(req, res, next) {
   const time = res.locals.reservation.reservation_time;
   const hour = Number(time.substring(0, 2));
@@ -175,7 +175,7 @@ function timelineValidator(req, res, next) {
 
   next();
 }
-
+ */
 /**
  * Status validation middleware
  */
