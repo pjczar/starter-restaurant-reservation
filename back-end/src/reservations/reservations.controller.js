@@ -163,7 +163,7 @@ function timelineValidator(req, res, next) {
   const reservationDate = new Date(res.locals.reservation.reservation_date);
   reservationDate.setHours(hour, minutes, 0, 0);
 
-  const minimumReservationTime = new Date(currentDate.getTime() + 60 * 60 * 1000); // Current time + 1 hour
+  const minimumReservationTime = currentDate.getTime() + 60 * 60 * 1000; // Current time + 1 hour
 
   if (reservationDate < minimumReservationTime) {
     return next({
