@@ -60,18 +60,31 @@ async function validateNewReservation(req, res, next) {
   res.locals.reservation = { first_name, last_name, mobile_number, people, reservation_date, reservation_time };
   next();
 }
-/**write a funtion that gets the timezone  */
+/**write a funtion that gets the timezone of the user and use that in the next function NOT UTC */
+function getUserTimezone() {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return timezone;
+}
+
+
+/**timezone offset handler */
+function getTimezoneOffset(timezone) {
+  const now = new Date();
+  const timezoneDate = new Date(now.toLocaleString("en-US", { timeZone: timezone }));
+  return (now.getTime() - timezoneDate.getTime()) / 60000; // Return the offset in minutes
+}
+
 /**
  * Date validation middleware
  */
 function dateValidator(req, res, next) {
   const date = new Date(res.locals.reservation.reservation_date);
   const currentDate = new Date();
- console.log(date)
+  const userTimezone = getUserTimezone();
   if (date.getUTCDay() === 2)
     return next({ status: 400, message: "We're closed on Tuesdays!" });
 
-  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes() - 240;
+  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes() - getTimezoneOffset(userTimezone);
   const reservationTime = date.getHours() * 60 + date.getMinutes();
 
   if (date.toDateString() === currentDate.toDateString() && reservationTime <= currentTime)
