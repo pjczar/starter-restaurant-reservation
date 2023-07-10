@@ -92,7 +92,7 @@ function dateValidator(req, res, next) {
   console.log(userTimezone)
 
   if (date.getDay() === 2) {
-    return next({ status: 400, message: "Location is closed on Tuesdays" });
+    return next({ status: 400, message: "Location is closed on Tuesdays or today is tuesday" });
   }
 
   const today = new Date();
@@ -168,7 +168,7 @@ function timelineValidator(req, res, next) {
   if (reservationDate < minimumReservationTime) {
     return next({
       status: 400,
-      message: "Reservations must be made at least 1 hour in advance.",
+      message: `${reservationDate} ${minimumReservationTime} Reservations must be made at least 1 hour in advance.`,
     });
   }
 
