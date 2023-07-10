@@ -153,15 +153,13 @@ function notTuesday(req, res, next) {
 
 /**
  * Timeline validation middleware
-
+ */
 function timelineValidator(req, res, next) {
-  const time = res.locals.reservation.reservation_time;
-  const hour = Number(time.substring(0, 2));
-  const minutes = Number(time.substring(3));
+  const { reservation_time, reservation_date } = res.locals.reservation;
+  const [hour, minutes] = reservation_time.split(':');
 
   const currentDate = new Date();
-  const currentDateHere = currentDate.toLocaleString();
-  const reservationDate = new Date(res.locals.reservation.reservation_date);
+  const reservationDate = new Date(reservation_date);
   reservationDate.setHours(hour, minutes, 0, 0);
 
   const minimumReservationTime = new Date(currentDate.getTime() + 60 * 60 * 1000); // Current time + 1 hour
@@ -169,13 +167,14 @@ function timelineValidator(req, res, next) {
   if (reservationDate < minimumReservationTime) {
     return next({
       status: 400,
-      message: `${reservationDate} ${minimumReservationTime} ${currentDateHere.getTime()} Reservations must be made at least 1 hour in advance.`,
+      message: 'Reservations must be made at least 1 hour in advance.',
     });
   }
 
   next();
 }
- */
+
+
 /**
  * Status validation middleware
  */
