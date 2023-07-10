@@ -160,7 +160,7 @@ function timelineValidator(req, res, next) {
   const minutes = Number(time.substring(3));
 
   const currentDate = new Date();
-  const currentDateHere = currentDate.toLocaleDateString();
+  const currentDateHere = currentDate.toLocaleString();
   const reservationDate = new Date(res.locals.reservation.reservation_date);
   reservationDate.setHours(hour, minutes, 0, 0);
 
