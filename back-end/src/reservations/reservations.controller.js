@@ -77,21 +77,27 @@ function getTimezoneOffset(timezone) {
 /**
  * Date validation middleware
  */
-function dateValidator(req, res, next) {
-  const date = new Date(res.locals.reservation.reservation_date);
+function timelineValidator(req, res, next) {
+  const time = res.locals.reservation.reservation_time;
+  const hour = Number(time.substring(0, 2));
+  const minutes = Number(time.substring(3));
+
   const currentDate = new Date();
-  const userTimezone = getUserTimezone();
-  if (date.getUTCDay() === 2)
-    return next({ status: 400, message: "We're closed on Tuesdays!" });
+  const reservationDate = new Date(res.locals.reservation.reservation_date);
+  reservationDate.setHours(hour, minutes, 0, 0);
 
-  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes() - getTimezoneOffset(userTimezone);
-  const reservationTime = date.getHours() * 60 + date.getMinutes();
+  const minimumReservationTime = new Date(currentDate.getTime() + 60 * 60 * 1000); // Current time + 1 hour
 
-  if (date.toDateString() === currentDate.toDateString() && reservationTime <= currentTime)
-    return next({ status: 400, message: "Reservations must be made in the future!" });
+  if (reservationDate < minimumReservationTime) {
+    return next({
+      status: 400,
+      message: "Reservations must be made at least 1 hour in advance.",
+    });
+  }
 
   next();
 }
+
 
 
 // validation middleware: checks that the reservation_date is not a Tuesday
