@@ -18,7 +18,7 @@ function Layout() {
         <div className="col-md-2 side-bar">
           <Menu />
         </div>
-        <div className="col rest">
+        <div className="col rest" style={{ alignItems: "flex-start" }}>
           <Routes />
         </div>
       </div>
