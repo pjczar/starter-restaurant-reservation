@@ -45,21 +45,28 @@ async function validateNewReservation(req, res, next) {
   if (!reservation_date.match(/\d{4}-\d{2}-\d{2}/))
     return next({ status: 400, message: 'reservation_date is invalid!' });
 
-  if (!reservation_time.match(/\d{2}:\d{2}/))
-    return next({ status: 400, message: 'reservation_time is invalid!' });
-
   if (typeof people !== 'number')
     return next({ status: 400, message: 'people is not a number!' });
 
   if (status === 'seated')
-    return next({ status: 400, message: 'status can not be seated!' });
+    return next({ status: 400, message: 'status cannot be seated!' });
 
   if (status === 'finished')
-    return next({ status: 400, message: 'status can not be finished!' });
+    return next({ status: 400, message: 'status cannot be finished!' });
+
+  const today = new Date();
+  const selectedDate = new Date(reservation_date);
+
+  if (selectedDate < today) {
+    return next({ status: 400, message: 'Reservation date must be a future date' });
+  }
 
   res.locals.reservation = { first_name, last_name, mobile_number, people, reservation_date, reservation_time };
   next();
 }
+
+
+
 /**write a funtion that gets the timezone of the user and use that in the next function NOT UTC */
 function getUserTimezone() {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
