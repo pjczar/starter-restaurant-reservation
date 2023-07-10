@@ -310,7 +310,22 @@ async function update(req, res) {
 module.exports = {
   list: [asyncErrorBoundary(list)],
   read: [asyncErrorBoundary(checkId), asyncErrorBoundary(read)],
-  create: [asyncErrorBoundary(validateNewReservation), asyncErrorBoundary(dateValidator), asyncErrorBoundary(timelineValidator), asyncErrorBoundary(create)],
-  updateStatus: [asyncErrorBoundary(checkId), asyncErrorBoundary(validateStatusUpdate), asyncErrorBoundary(updateStatus)],
-  update: [asyncErrorBoundary(checkId), asyncErrorBoundary(validateUpdate), asyncErrorBoundary(dateValidator), asyncErrorBoundary(timelineValidator), asyncErrorBoundary(update)]
+  create: [
+    asyncErrorBoundary(validateNewReservation),
+    asyncErrorBoundary(notTuesday),
+    asyncErrorBoundary(dateValidator),
+    asyncErrorBoundary(timelineValidator),
+    asyncErrorBoundary(create),
+  ],
+  updateStatus: [
+    asyncErrorBoundary(checkId),
+    asyncErrorBoundary(validateStatusUpdate), 
+    asyncErrorBoundary(updateStatus)
+  ],
+  update: [
+    asyncErrorBoundary(checkId), 
+    asyncErrorBoundary(validateUpdate), 
+    asyncErrorBoundary(dateValidator), 
+    asyncErrorBoundary(timelineValidator), 
+    asyncErrorBoundary(update)]
 };
