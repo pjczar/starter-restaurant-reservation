@@ -74,24 +74,26 @@ function getTimezoneOffset(timezone) {
   return (now.getTime() - timezoneDate.getTime()) / 60000; // Return the offset in minutes
 }
 
-/**
- * Date validation middleware
- */
-function timelineValidator(req, res, next) {
-  const time = res.locals.reservation.reservation_time;
-  const hour = Number(time.substring(0, 2));
-  const minutes = Number(time.substring(3));
+/**date validator v2 */
+function dateValidator(req, res, next) {
+  const { reservation_date, reservation_time } = req.body.data;
+  const [year, month, day] = reservation_date.split("-");
+  const date = new Date(`${month} ${day}, ${year}`);
+  const [hour, minute] = reservation_time.split(":");
 
-  const currentDate = new Date();
-  const reservationDate = new Date(res.locals.reservation.reservation_date);
-  reservationDate.setHours(hour, minutes, 0, 0);
+  if (date.getDay() === 2) {
+    return next({ status: 400, message: "Location is closed on Tuesdays" });
+  }
 
-  const minimumReservationTime = new Date(currentDate.getTime() + 60 * 60 * 1000); // Current time + 1 hour
+  const today = new Date();
+  if (date < today) {
+    return next({ status: 400, message: "Must be a future date" });
+  }
 
-  if (reservationDate < minimumReservationTime) {
+  if (hour < 10 || hour > 21 || (hour < 11 && minute < 30) || (hour > 20 && minute > 30)) {
     return next({
       status: 400,
-      message: "Reservations must be made at least 1 hour in advance.",
+      message: "Reservation must be made within business hours",
     });
   }
 
@@ -99,6 +101,27 @@ function timelineValidator(req, res, next) {
 }
 
 
+
+
+/**
+ * Date validation middleware
+
+function dateValidator(req, res, next) {
+  const date = new Date(res.locals.reservation.reservation_date);
+  const currentDate = new Date();
+  const userTimezone = getUserTimezone();
+  if (date.getUTCDay() === 2)
+    return next({ status: 400, message: "We're closed on Tuesdays!" });
+
+  const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes() - getTimezoneOffset(userTimezone);
+  const reservationTime = date.getHours() * 60 + date.getMinutes();
+
+  if (date.toDateString() === currentDate.toDateString() && reservationTime <= currentTime)
+    return next({ status: 400, message: "Reservations must be made in the future!" });
+
+  next();
+}
+*/
 
 // validation middleware: checks that the reservation_date is not a Tuesday
 function notTuesday(req, res, next) {
