@@ -162,7 +162,7 @@ function timelineValidator(req, res, next) {
   const minimumReservationTime = new Date(currentTime.getTime() + 60 * 60 * 1000); // Current time + 1 hour
 
   if (reservationDateTime < minimumReservationTime) {
-    return next({ status: 400, message: ` ${reservationDateTime} ${currentTime} ${minimumReservationTime} 'Reservations must be made at least 1 hour in advance.'` });
+    return next({ status: 400, message: "Reservations must be made at least 1 hour in advance." });
   }
 
   next();
