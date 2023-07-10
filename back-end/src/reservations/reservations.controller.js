@@ -83,7 +83,7 @@ function getTimezoneOffset(timezone) {
 
 /**date validator v2 */
 function dateValidator(req, res, next) {
-  const { reservation_date, reservation_time } = req.body.data;
+  const { reservation_date, reservation_time } = res.locals.reservation;
   const [year, month, day] = reservation_date.split("-");
   const date = new Date(`${month} ${day}, ${year}`);
   const [hour, minute] = reservation_time.split(":");
