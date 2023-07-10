@@ -168,7 +168,7 @@ function timelineValidator(req, res, next) {
   if (reservationDate < minimumReservationTime) {
     return next({
       status: 400,
-      message: `${reservationDate} ${minimumReservationTime} ${currentDate.getTime()} ${currentDate.getTime() + 60 * 60 * 1000} Reservations must be made at least 1 hour in advance.`,
+      message: `${reservationDate} ${minimumReservationTime} ${currentDate} Reservations must be made at least 1 hour in advance.`,
     });
   }
 
