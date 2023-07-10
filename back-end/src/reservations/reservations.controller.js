@@ -57,8 +57,9 @@ async function validateNewReservation(req, res, next) {
   const today = new Date();
   const selectedDate = new Date(reservation_date);
 
-  if (selectedDate < today) {
+/**  if (selectedDate < today) {
     return next({ status: 400, message: 'Reservation date must be a future date' });
+  */
   }
 
   res.locals.reservation = { first_name, last_name, mobile_number, people, reservation_date, reservation_time };
@@ -84,8 +85,8 @@ function getTimezoneOffset(timezone) {
 /**date validator v2 */
 function dateValidator(req, res, next) {
   const { reservation_date, reservation_time } = res.locals.reservation;
-  const [month, day, year] = reservation_date.split("-");
-  const date = new Date(`${month} ${day}, ${year}`);
+  const [year, month, day] = reservation_date.split("-");
+  const date = new Date(`${year}, ${month}, ${day}`);
   const [hour, minute] = reservation_time.split(":");
   const userTimezone = getUserTimezone();
   console.log(userTimezone)
