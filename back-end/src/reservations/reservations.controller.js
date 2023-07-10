@@ -59,9 +59,9 @@ async function validateNewReservation(req, res, next) {
 
 /**  if (selectedDate < today) {
     return next({ status: 400, message: 'Reservation date must be a future date' });
-  */
+  
   }
-
+*/
   res.locals.reservation = { first_name, last_name, mobile_number, people, reservation_date, reservation_time };
   next();
 }
