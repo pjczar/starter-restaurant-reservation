@@ -7,6 +7,16 @@ h5 {
   font-size: larger;
 }
 
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  justify-content: center;
+}
+
 .side-bar {
   background-color: #393a44;
   min-width: 200px;
