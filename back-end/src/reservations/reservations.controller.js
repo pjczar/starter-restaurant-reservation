@@ -157,8 +157,8 @@ function notTuesday(req, res, next) {
 function timelineValidator(req, res, next) {
   const { reservation_time } = res.locals.reservation; // Assuming the reservation time is passed in the `data` property of the request body
   const reservationDateTime = new Date(`${res.locals.reservation.reservation_date} ${reservation_time}`);
-  const currentTime = new Date().toLocaleString().getTime();
-  const minimumReservationTime = new Date(currentTime + 60 * 60 * 1000); // Current time + 1 hour
+  const currentTime = new Date (new Date().toLocaleString());
+  const minimumReservationTime = new Date(currentTime.getTime() + 60 * 60 * 1000); // Current time + 1 hour
 
   if (reservationDateTime < minimumReservationTime) {
     return next({ status: 400, message: `${reservation_time} ${reservationDateTime} ${currentTime} ${minimumReservationTime} 'Reservations must be made at least 1 hour in advance.'` });
